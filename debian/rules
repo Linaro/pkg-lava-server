@@ -38,10 +38,8 @@ override_dh_auto_build:
 	cp etc/lava-publisher.init debian/
 	[ ! -f etc/lava-master.init ] || cp etc/lava-master.init debian/
 	python setup.py build
-	make -C doc/ html SPHINXOPTS="-j 4 -D today=\"$(BUILD_DATE)\""
-	make -C doc/v1/ html SPHINXOPTS="-j 4 -D today=\"$(BUILD_DATE)\""
-	make -C doc/v2/ html SPHINXOPTS="-j 4 -D today=\"$(BUILD_DATE)\""
-	make -C man/ man SPHINXOPTS="-j 4 -D today=\"$(BUILD_DATE)\""
+	make -C doc/v2/ html SPHINXOPTS="-D today=\"$(BUILD_DATE)\""
+	make -C man/ man SPHINXOPTS="-D today=\"$(BUILD_DATE)\""
 
 override_dh_auto_install:
 	dh_auto_install
@@ -73,7 +71,6 @@ override_dh_auto_clean:
 	[ ! -f doc/v1/Makefile ] || make -C doc/v1/ clean
 	[ ! -f doc/v2/Makefile ] || make -C doc/v2/ clean
 	[ ! -f man/Makefile ] || make -C man/ clean
-	debconf-updatepo
 
 # get upstream version for get-orig-source target
 VERSION:= $(shell dpkg-parsechangelog | grep '^Version: ' | sed -e 's/^Version: //' | sed -e 's/\-.*$$//')
