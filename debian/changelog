@@ -1,3 +1,11 @@
+lava-server (2017.11.post1-1) unstable; urgency=medium
+
+  * 2017.11.post1 Hot fix release
+    70d5a453 Fix typo in static_info handling in base.jinja2
+    7dff9ae3 LAVA-1112 static_info server side template support
+
+ -- Neil Williams <codehelp@debian.org>  Mon, 20 Nov 2017 08:57:27 +0000
+
 lava-server (2017.11-2) unstable; urgency=medium
 
   * Fix error in postrm script
