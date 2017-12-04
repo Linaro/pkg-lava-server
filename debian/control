@@ -7,9 +7,9 @@ Uploaders: Neil Williams <codehelp@debian.org>,
 Build-Depends: debhelper (>= 9.20160709), dh-python,
  node-uglify, libjs-excanvas, libjs-jquery-cookie, libjs-jquery,
  libjs-jquery-watermark, libjs-jquery-flot (>= 0.8.2), libjs-jquery-ui,
- python | python-all | python-dev | python-all-dev,
- python-sphinx (>= 1.4), python-sphinx-bootstrap-theme,
- python-mocker, python-setuptools (>= 3), python-yaml
+ python | python-all | python-dev | python-all-dev, po-debconf,
+ python3-sphinx (>= 1.4), python3-sphinx-bootstrap-theme,
+ python-setuptools (>= 3), python-yaml
 X-Python-Version: 2.7
 Standards-Version: 4.1.1
 Homepage: http://www.linaro.org/projects/test-validation/
@@ -23,13 +23,13 @@ Conflicts: lava-scheduler, lava-dashboard, linaro-django-xmlrpc,
  python-django-hijack (<= 1.0.10-1), python-django (<< 1.8),
  python-django-auth-openid
 Replaces: lava-scheduler, lava-dashboard, linaro-django-xmlrpc
-Depends: apache2, adduser, gunicorn, iproute2, lsb-base (>= 4),
- python-tz, python-daemon, python-dateutil,
+Pre-Depends: debconf | debconf-2.0
+Depends: apache2, adduser, gunicorn, iproute2, python-tz, python-dateutil,
  python-django (>= 1.8), python-django-auth-ldap, python-setuptools,
  libjs-excanvas, libjs-jquery-cookie, libjs-jquery, libjs-jquery-ui,
  libjs-jquery-watermark, libjs-jquery-flot (>= 0.8.2), openssh-client,
- postgresql, postgresql-client, postgresql-common,
- lava-dispatcher (>= 2017.10),
+ postgresql, postgresql-client, postgresql-common, systemd-sysv,
+ lava-dispatcher (>= 2017.12),
  ${python:Depends}, ${misc:Depends}
 Recommends: fuse, ntp, lava-coordinator, lava-server-doc,
 Suggests: python-django-hijack, python-django-debug-toolbar
@@ -46,9 +46,9 @@ Description: Linaro Automated Validation Architecture server
  instance as a lava-server virtual host as well as the scheduler
  and dispatcher.
  .
- This package can be configured as the master scheduler or as a
- remote worker, although design limitations mean that it always
- installs a database (unused on a remote worker).
+ This package no longer supports configuration as a
+ remote worker and needs to be removed from existing workers.
+ Workers must only install lava-dispatcher.
 
 Package: lava
 Architecture: all
@@ -76,13 +76,13 @@ Package: lava-dev
 Architecture: all
 Section: devel
 Depends: build-essential, ca-certificates, devscripts, dpkg-dev,
- debhelper (>= 9.20160709), fakeroot, git, libdistro-info-perl,
- node-uglify, libjs-excanvas, libjs-jquery-cookie, libjs-jquery,
- libjs-jquery-watermark, libjs-jquery-flot (>= 0.8.2), libjs-jquery-ui,
- python | python-all | python-dev | python-all-dev, pep8 | python-pep8,
- python-guestfs, python-sphinx (>= 1.4) | python3-sphinx (>= 1.4),
- python-mocker, python-nose, python-netifaces, python-setuptools,
- python-sphinx-bootstrap-theme, python-zmq, python-yaml,
+ debootstrap (>= 1.0.86), debhelper (>= 9.20160709), fakeroot, git,
+ libdistro-info-perl, node-uglify, libjs-excanvas, libjs-jquery-cookie,
+ libjs-jquery, libjs-jquery-watermark, libjs-jquery-flot (>= 0.8.2),
+ libjs-jquery-ui, python | python-all | python-dev | python-all-dev,
+ pep8 | python-pep8, python-guestfs,  python-nose, python-netifaces,
+ python3-sphinx (>= 1.4), python-setuptools, python-pexpect (>= 4.2),
+ python3-sphinx-bootstrap-theme, python-zmq, python-yaml,
  python-voluptuous (>= 0.8.8), docbook-xsl, xsltproc, python-mock,
  ${python:Depends}, ${misc:Depends}
 Recommends: sbuild, python-django-extensions, python-pydot,
